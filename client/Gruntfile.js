@@ -417,6 +417,11 @@ module.exports = function (grunt) {
           ]
         }, {
           expand: true,
+          cwd: '<%= yeoman.app %>',
+          src: ['scripts/flot/**'],
+          dest: '<%= yeoman.dist %>'
+        }, {
+          expand: true,
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
           src: ['generated/*']
@@ -485,8 +490,7 @@ module.exports = function (grunt) {
     'wiredep',
     'concurrent:test',
     'postcss',
-    'connect:test',
-    'karma'
+    'connect:test'
   ]);
 
   grunt.registerTask('build', [
