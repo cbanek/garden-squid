@@ -9,29 +9,60 @@
  */
 angular.module('clientApp')
   .controller('MainCtrl', function ($scope, $http) {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+
+  $scope.dateOptions = {
+    formatYear: 'yy',
+    startingDay: 1
+  };
+
+  $scope.toTime = {
+    time: new Date(),
+    opened: false
+  };
+
+  $scope.fromTime = {
+    time: new Date(),
+    opened: false
+  };
+
+  $scope.fromTime.time.setDate($scope.toTime.time.getDate() - 1);
 
   $scope.dataset = [];
   $scope.options = {
+    xaxes: [{mode: 'time', timeformat: '%y/%m/%d'}],
+    yaxes: [{min:10}, {min:300, position: 'right'}],
     legend: {
       container: '#legend',
-      show: true
+      show: true,
+      noColumns: 10
     }
   };
 
-  $http.get('/api/data').then(function(response) {
-    for(var key in response.data) {
-      $scope.dataset.push({
-        data: response.data[key],
-        xaxis: {mode: 'time', timeformat: '%y/%m/%d'},
-        yaxis: 1,
-        label: key
-      });
-    }
-  });
+  $scope.draw = function() {
+    var params = {
+      from: $scope.fromTime.time.toISOString().split('.')[0],
+      to: $scope.toTime.time.toISOString().split('.')[0]
+    };
+
+    $http.get('/api/data', {params: params}).then(function(response) {
+      $scope.dataset = [];
+
+      for(var key in response.data) {
+        var axis;
+        if (key === ' co2') {
+          console.log('key is %s', key);
+          axis = 2;
+        } else {
+          axis = 1;
+        }
+
+        $scope.dataset.push({
+          data: response.data[key],
+          yaxis: axis,
+          label: key
+        });
+      }
+    });
+  };
 
   });

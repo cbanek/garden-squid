@@ -10,7 +10,8 @@
     "angular-route": "^1.4.0",
     "angular-sanitize": "^1.4.0",
     "angular-touch": "^1.4.0",
-    "angular-flot": "^0.0.16"
+    "angular-flot": "^0.0.16",
+    "angular-bootstrap": "*"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
