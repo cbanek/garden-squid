@@ -31,5 +31,19 @@ def get_data():
 
   return json.dumps(data)
 
+@app.route("/api/sensors", methods=['GET'])
+def get_sensors():
+  with open('sensors.json') as sensors:
+    return sensors.read()
+
+@app.route("/api/sensors", methods=['PUT'])
+def put_sensors():
+  data = flask.request.get_json()
+
+  with open('sensors.json', 'w') as sensors:
+    sensors.write(json.dumps(data))
+
+  return json.dumps(data)
+
 if __name__ == "__main__":
   app.run(debug=True, host='0.0.0.0')
