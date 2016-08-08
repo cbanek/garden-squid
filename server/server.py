@@ -55,8 +55,12 @@ def put_sensors():
   return json.dumps(data)
 
 def getSensorNames():
-  with open('names.json', 'r') as name_file:
-    return json.loads(name_file.read())
+  try:
+    with open('names.json', 'r') as name_file:
+      return json.loads(name_file.read())
+  except IOError:
+    print 'names.json does not exist.'
+    return {}
 
 def setSensorNames(names):
   global restartEvent
@@ -76,8 +80,9 @@ def initSensors():
   names = getSensorNames()
 
   for sensor in sensors:
-    if sensor['id'] not in names:
-      names['id'] = ''
+    sensor_id = sensor['id']
+    if sensor_id not in names:
+      names[sensor_id] = ''
 
   setSensorNames(names)
   restartEvent.clear()
