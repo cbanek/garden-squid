@@ -9,6 +9,9 @@ import threading
 import flask
 
 import hardware.test
+import hardware.k30
+import hardware.sht31
+import hardware.ds18b20
 
 app = flask.Flask(__name__)
 
@@ -75,7 +78,12 @@ def initSensors():
   restartEvent = threading.Event()
 
   sensors = []
-  sensors.extend(hardware.test.detect())
+  sensors.extend(hardware.sht31.detect())
+  sensors.extend(hardware.k30.detect())
+  sensors.extend(hardware.ds18b20.detect())
+
+  if not sensors:
+    sensors.extend(hardware.test.detect())
 
   names = getSensorNames()
 
@@ -122,7 +130,7 @@ def pollSensors(sensors):
 
       for sensor in sensors:
         if 'name' in sensor:
-          samples[sensor['name']] = sensor['driver'].sample()
+          samples[sensor['name']] = sensor['driver']()
 
       writer.writerow(samples)
       csvfile.flush()

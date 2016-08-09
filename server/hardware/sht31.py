@@ -4,6 +4,25 @@ import struct
 import time
 
 
+def detect():
+    try:
+       sht = SHT31()
+       (temp, hum) = sht.get_temp_and_humidity()
+
+       return [
+         {
+           'id': 'sht31-temp',
+           'driver': sht.temperature
+         },
+         {
+           'id': 'sht31-humidity',
+           'driver': sht.humidity
+         }
+       ]
+    except Exception as e:
+       print 'SHT31 not found. (%s)' % e
+       return []
+
 class SHT31:
     """Class to read temperature and humidity from SHT31, much of class was
     this is based on code from nadanks7 who used
@@ -77,6 +96,14 @@ class SHT31:
             return self._get_temperature(temp_data), self._get_humidity(humidity_data)
         else:
             return 0, 0
+
+    def temperature(self):
+        (temp, hum) = self.get_temp_and_humidity()
+        return temp
+
+    def humidity(self):
+        (temp, hum) = self.get_temp_and_humidity()
+        return hum
 
     def write(self, value):
         self.i2c.write(struct.pack(">H", value))

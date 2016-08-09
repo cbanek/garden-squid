@@ -3,6 +3,19 @@ import serial
 import time
 
 
+def detect():
+  try:
+    k30 = K30()
+    k30.get_ppm()
+
+    return [{
+      'id': 'k30-co2',
+      'driver': k30.get_ppm
+    }]
+  except Exception as e:
+    print 'K30 not found (%s)' % e
+    return []
+
 class K30:
   def __init__(self):
     self.ser = serial.Serial("/dev/ttyS0", baudrate=9600)

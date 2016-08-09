@@ -4,12 +4,12 @@ def detect():
   return [
     {
       'id': 'test-id1',
-      'driver': TestSensor(),
+      'driver': TestSensor().sample,
       'name': 'test1'
     },
     {
       'id': 'test-id2',
-      'driver': TestSensor()
+      'driver': TestSensor().sample
     }
   ]
 
