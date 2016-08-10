@@ -42,7 +42,7 @@ def get_data():
 
         if row_time > from_time and row_time < to_time:
           for field in reader.fieldnames:
-            if field != 'time' and row[field] != ' *':
+            if field != 'time' and row[field] != '*':
               data[field].append([row_time*1000, float(row[field])])
 
   return json.dumps(data)
