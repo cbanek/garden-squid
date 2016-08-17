@@ -1,27 +1,13 @@
 <div class="row">
-  <div class="col-md-4">From:</div>
-  <div class="col-md-4">
-    <p class="input-group">
-      <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-change="draw()" ng-model="fromTime.time" is-open="fromTime.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-      <span class="input-group-btn">
-        <button type="button" class="btn btn-default" ng-click="fromTime.opened = true;"><i class="glyphicon glyphicon-calendar"></i></button>
-      </span>
-    </p>
-  </div>
-  <div class="col-md-4" uib-timepicker ng-model="fromTime.time" ng-change="draw()" hour-step="1" minute-step="15" show-meridian="true"></div>
+  <div class="col-xs-4">From:</div>
+  <input class="col-xs-4" type="text" uib-datepicker-popup="{{format}}" ng-change="draw()" ng-model="fromTime.time" is-open="fromTime.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-click="fromTime.opened = true;" />
+  <div class="col-xs-4" uib-timepicker show-spinners="false" ng-model="fromTime.time" ng-change="draw()" show-meridian="true"></div>
 </div>
 
 <div class="row">
-  <div class="col-md-4">To:</div>
-  <div class="col-md-4">
-    <p class="input-group">
-      <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-change="draw()" ng-model="toTime.time" is-open="toTime.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-      <span class="input-group-btn">
-        <button type="button" class="btn btn-default" ng-click="toTime.opened = true;"><i class="glyphicon glyphicon-calendar"></i></button>
-      </span>
-    </p>
-  </div>
-  <div class="col-md-4" uib-timepicker ng-model="toTime.time" ng-change="draw()" hour-step="1" minute-step="15" show-meridian="true"></div>
+  <div class="col-xs-4">To:</div>
+  <input type="text" class="col-xs-4" uib-datepicker-popup="{{format}}" ng-change="draw()" ng-model="toTime.time" is-open="toTime.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"  ng-click="toTime.opened = true;" />
+  <div class="col-xs-4" uib-timepicker show-spinners="false" ng-model="toTime.time" ng-change="draw()" show-meridian="true"></div>
 </div>
 
 <div id="legend"></div>
