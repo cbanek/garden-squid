@@ -30,7 +30,23 @@ def get_data():
   data_files = glob.glob('*.csv')
   data_files.sort()
 
-  for data_file in data_files:
+  last_idx = len(data_files)
+
+  for idx, data_file in enumerate(data_files):
+    from_time_filename = time.strftime("%Y-%m-%dT%H:%M:%S.csv", time.localtime(from_time))
+    to_time_filename = time.strftime("%Y-%m-%dT%H:%M:%S.csv", time.localtime(to_time))
+
+    next_idx = idx + 1
+    if next_idx < last_idx and \
+       from_time_filename > data_files[idx] and \
+       from_time_filename > data_files[next_idx]:
+      print 'Skipping %s (file before time)' % data_file
+      continue
+
+    if to_time_filename < data_files[idx]:
+      print 'Skipping %s (file after time)' % data_file
+      continue
+
     print 'Searching data file: %s' % data_file
 
     with open(data_file) as data_file:
