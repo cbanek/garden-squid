@@ -47,6 +47,9 @@ angular.module('clientApp')
     $http.get('/api/data', {params: params}).then(function(response) {
       $scope.dataset = [];
 
+      $scope.deviceTime = Date.parse(response.data.DEVICE_TIME);
+      delete response.data.DEVICE_TIME;
+
       for(var key in response.data) {
         var axis;
         if (key === ' co2') {
@@ -65,4 +68,5 @@ angular.module('clientApp')
     });
   };
 
+  $scope.draw();
   });

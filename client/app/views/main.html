@@ -1,4 +1,10 @@
 <div class="row">
+  <div class="col-xs-4">Device time:</div>
+  <input class="col-xs-4" type="text" uib-datepicker-popup="{{format}}" ng-model="deviceTime" datepicker-options="dateOptions" ng-required="true" ng-disabled="true" />
+  <div class="col-xs-4" uib-timepicker show-spinners="false" ng-model="deviceTime" ng-disabled="true" show-meridian="true"></div>
+</div>
+
+<div class="row">
   <div class="col-xs-4">From:</div>
   <input class="col-xs-4" type="text" uib-datepicker-popup="{{format}}" ng-change="draw()" ng-model="fromTime.time" is-open="fromTime.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-click="fromTime.opened = true;" />
   <div class="col-xs-4" uib-timepicker show-spinners="false" ng-model="fromTime.time" ng-change="draw()" show-meridian="true"></div>

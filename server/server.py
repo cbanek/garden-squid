@@ -26,6 +26,7 @@ def get_data():
   to_time = time.mktime(time.strptime(to_time, "%Y-%m-%dT%H:%M:%S"))
 
   data = collections.defaultdict(list)
+  data['DEVICE_TIME'] = datetime.datetime.utcnow().isoformat()
 
   data_files = glob.glob('*.csv')
   data_files.sort()
