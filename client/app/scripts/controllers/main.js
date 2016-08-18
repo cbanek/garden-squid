@@ -27,8 +27,21 @@ angular.module('clientApp')
 
   $scope.fromTime.time.setDate($scope.toTime.time.getDate() - 1);
 
+  $scope.hover = {label: '', time: '', val: ''};
+
+  $scope.plotHover = function(item) {
+    if (item) {
+      $scope.hover.label = item.series.label;
+      $scope.hover.time = new Date(item.datapoint[0]);
+      $scope.hover.val = item.datapoint[1].toFixed(4);
+    }
+  };
+
   $scope.dataset = [];
   $scope.options = {
+    grid: {
+      hoverable: true
+    },
     xaxes: [{mode: 'time', timeformat: '%y/%m/%d'}],
     yaxes: [{min:10}, {min:300, position: 'right'}],
     legend: {

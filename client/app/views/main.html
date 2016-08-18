@@ -5,19 +5,24 @@
 </div>
 
 <div class="row">
-  <div class="col-xs-4">From:</div>
+  <div class="col-xs-4">Graph from:</div>
   <input class="col-xs-4" type="text" uib-datepicker-popup="{{format}}" ng-change="draw()" ng-model="fromTime.time" is-open="fromTime.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-click="fromTime.opened = true;" />
   <div class="col-xs-4" uib-timepicker show-spinners="false" ng-model="fromTime.time" ng-change="draw()" show-meridian="true"></div>
 </div>
 
 <div class="row">
-  <div class="col-xs-4">To:</div>
+  <div class="col-xs-4">Graph to:</div>
   <input type="text" class="col-xs-4" uib-datepicker-popup="{{format}}" ng-change="draw()" ng-model="toTime.time" is-open="toTime.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"  ng-click="toTime.opened = true;" />
   <div class="col-xs-4" uib-timepicker show-spinners="false" ng-model="toTime.time" ng-change="draw()" show-meridian="true"></div>
 </div>
 
+<div>Legend:</div>
 <div id="legend"></div>
-
-<div>
-<flot dataset="dataset" options="options" height="600px"></flot>
+<br>
+<div class="row">
+  <div class="col-xs-4" ng-bind="hover.label"></div>
+  <div class="col-xs-4" ng-bind="hover.time"></div>
+  <div class="col-xs-4" ng-bind="hover.val"></div>
 </div>
+<br>
+<flot dataset="dataset" options="options" height="600px" on-plot-hover="plotHover(item)" ></flot>
