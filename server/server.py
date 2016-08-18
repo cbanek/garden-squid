@@ -118,14 +118,17 @@ def pollThread():
   sensors = initSensors()
 
   while True:
-    names = getSensorNames()
+    try:
+      names = getSensorNames()
 
-    for sensor in sensors:
-      sensor_id = sensor['id']
-      if names[sensor_id] != '':
-        sensor['name'] = names[sensor_id]
+      for sensor in sensors:
+        sensor_id = sensor['id']
+        if names[sensor_id] != '':
+          sensor['name'] = names[sensor_id]
 
-    pollSensors(sensors)
+      pollSensors(sensors)
+    except Exception as e:
+      print 'Exception reading sensors %s' % e
 
 def pollSensors(sensors):
   global restartEvent
