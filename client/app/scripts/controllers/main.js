@@ -65,7 +65,7 @@ angular.module('clientApp')
 
       for(var key in response.data) {
         var axis;
-        if (key === ' co2') {
+        if (key === 'co2') {
           console.log('key is %s', key);
           axis = 2;
         } else {
