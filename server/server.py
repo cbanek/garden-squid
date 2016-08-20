@@ -82,7 +82,7 @@ def getConfig():
     print 'config.json does not exist.'
     return {
       'sensors': {},
-      'devices': {}
+      'devices': []
     }
 
 def setConfig(config):

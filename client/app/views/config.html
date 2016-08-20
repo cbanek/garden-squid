@@ -16,6 +16,9 @@
 <p>These names map X10 device codes to friendly device names.</p>
 <p>These friendly names are used in the automation rules.</p>
 
-<div ng-repeat="(device_id, device_friendly_name) in config.devices">
-  <input type="text" ng-model="device_id" class="width: 300px;"><input type="text" ng-change="modified()" ng-model="devices[device_id]">
+<div ng-repeat="device in config.devices">
+  <input type="text" ng-change="modified()" ng-model="device.device_id" class="width: 300px;"><input type="text" ng-change="modified()" ng-model="device.name"><button type="button" class="btn btn-sm btn-danger" ng-click="removeX10Device($index)">Delete</button>
 </div>
+
+<br>
+<label class="btn btn-primary" ng-click="addX10Device()">Add X10 controlled device</label>

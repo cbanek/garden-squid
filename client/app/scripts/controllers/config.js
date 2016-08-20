@@ -18,6 +18,16 @@ angular.module('clientApp')
       $scope.saveModel = 'modified';
     };
 
+    $scope.addX10Device = function() {
+      $scope.modified();
+      $scope.config.devices.push({'device_id': 'A99', 'name': 'New device'});
+    };
+
+    $scope.removeX10Device = function(index) {
+      $scope.modified();
+      $scope.config.devices.splice(index, 1);
+    };
+
     $scope.save = function() {
       $http.put('/api/config', $scope.config)
         .then(function success() {
