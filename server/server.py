@@ -3,6 +3,7 @@ import csv
 import datetime
 import glob
 import json
+import os.path
 import time
 import threading
 
@@ -70,6 +71,9 @@ def get_config():
 
 @app.route("/api/config", methods=['PUT'])
 def put_config():
+  if os.path.exists('lock'):
+    flask.abort(403)
+
   data = flask.request.get_json()
   setConfig(data)
   return json.dumps(data)
