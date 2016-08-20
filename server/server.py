@@ -64,29 +64,32 @@ def get_data():
 
   return json.dumps(data)
 
-@app.route("/api/sensors", methods=['GET'])
-def get_sensors():
-  return json.dumps(getSensorNames())
+@app.route("/api/config", methods=['GET'])
+def get_config():
+  return json.dumps(getConfig())
 
-@app.route("/api/sensors", methods=['PUT'])
-def put_sensors():
+@app.route("/api/config", methods=['PUT'])
+def put_config():
   data = flask.request.get_json()
-  setSensorNames(data)
+  setConfig(data)
   return json.dumps(data)
 
-def getSensorNames():
+def getConfig():
   try:
-    with open('names.json', 'r') as name_file:
-      return json.loads(name_file.read())
+    with open('config.json', 'r') as config_file:
+      return json.loads(config_file.read())
   except IOError:
-    print 'names.json does not exist.'
-    return {}
+    print 'config.json does not exist.'
+    return {
+      'sensors': {},
+      'devices': {}
+    }
 
-def setSensorNames(names):
+def setConfig(config):
   global restartEvent
 
-  with open('names.json', 'w') as name_file:
-    name_file.write(json.dumps(names))
+  with open('config.json', 'w') as config_file:
+    config_file.write(json.dumps(config))
 
   restartEvent.set()
 
@@ -102,14 +105,14 @@ def initSensors():
   if not sensors:
     sensors.extend(hardware.test.detect())
 
-  names = getSensorNames()
+  config = getConfig()
 
   for sensor in sensors:
     sensor_id = sensor['id']
-    if sensor_id not in names:
-      names[sensor_id] = ''
+    if sensor_id not in config['sensors']:
+      config['sensors'][sensor_id] = ''
 
-  setSensorNames(names)
+  setConfig(config)
   restartEvent.clear()
   return sensors
 
@@ -119,24 +122,19 @@ def pollThread():
 
   while True:
     try:
-      names = getSensorNames()
-
-      for sensor in sensors:
-        sensor_id = sensor['id']
-        if names[sensor_id] != '':
-          sensor['name'] = names[sensor_id]
-
-      pollSensors(sensors)
+      config = getConfig()
+      pollSensors(sensors, config)
     except Exception as e:
       print 'Exception reading sensors %s' % e
 
-def pollSensors(sensors):
+def pollSensors(sensors, config):
   global restartEvent
   fields = ['time']
 
   for sensor in sensors:
-    if 'name' in sensor:
-      fields.append(sensor['name'])
+    if sensor['id'] in config['sensors']:
+      name = config['sensors'][sensor['id']]
+      fields.append(name)
 
   filename = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S.csv")
   print 'Starting new file: %s' % filename
@@ -149,8 +147,9 @@ def pollSensors(sensors):
       samples = {'time': datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")}
 
       for sensor in sensors:
-        if 'name' in sensor:
-          samples[sensor['name']] = sensor['driver']()
+        if sensor['id'] in config['sensors']:
+          name = config['sensors'][sensor['id']]
+          samples[name] = sensor['driver']()
 
       writer.writerow(samples)
       csvfile.flush()

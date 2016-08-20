@@ -1,15 +1,21 @@
-<p>This is the sensor page where you can configure friendly names for your sensors.</p>
-<p>These names will show up in the legend of the conditions graph.</p>
-<p>If you don't configure a friendly name, data from that sensor will not be logged.</p>
-
-<div ng-repeat="(sensor_id, sensor_friendly_name) in sensors">
-  <input type="text" ng-model="sensor_id" class="width: 300px;" ng-disabled="true"><input type="text" ng-change="modified()" ng-model="sensors[sensor_id]">
-</div>
-
-<p>
 <div class="btn-group">
         <label class="btn btn-primary" ng-model="saveModel" ng-click="reset()" uib-btn-radio="'reset'" uncheckable>Reset</label>
         <label class="btn btn-primary" ng-model="saveModel" uib-btn-radio="'modified'" uncheckable>Modified</label>
         <label class="btn btn-success" ng-model="saveModel" ng-click="save()" uib-btn-radio="'save'" uncheckable>Save</label>
 </div>
-</p>
+
+<h2>Sensor Configuration</h2>
+<p>These names will show up in the legend of the conditions graph.</p>
+<p>If you don't configure a friendly name, data from that sensor will not be logged.</p>
+
+<div ng-repeat="(sensor_id, sensor_friendly_name) in config.sensors">
+  <input type="text" ng-model="sensor_id" class="width: 300px;" ng-disabled="true"><input type="text" ng-change="modified()" ng-model="config.sensors[sensor_id]">
+</div>
+
+<h2>X10 Device Configuration</h2>
+<p>These names map X10 device codes to friendly device names.</p>
+<p>These friendly names are used in the automation rules.</p>
+
+<div ng-repeat="(device_id, device_friendly_name) in config.devices">
+  <input type="text" ng-model="device_id" class="width: 300px;"><input type="text" ng-change="modified()" ng-model="devices[device_id]">
+</div>
