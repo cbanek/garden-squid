@@ -10,6 +10,8 @@
 angular.module('clientApp')
   .controller('MainCtrl', function ($scope, $http) {
 
+  $scope.loading = false;
+
   $scope.dateOptions = {
     formatYear: 'yy',
     startingDay: 1
@@ -57,6 +59,8 @@ angular.module('clientApp')
       to: $scope.toTime.time.toISOString().split('.')[0]
     };
 
+    $scope.loading = true;
+
     $http.get('/api/data', {params: params}).then(function(response) {
       $scope.dataset = [];
 
@@ -78,6 +82,8 @@ angular.module('clientApp')
           label: key
         });
       }
+
+      $scope.loading = false;
     });
   };
 

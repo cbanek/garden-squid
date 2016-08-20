@@ -16,8 +16,14 @@
   <div class="col-xs-4" uib-timepicker show-spinners="false" ng-model="toTime.time" ng-change="draw()" show-meridian="true"></div>
 </div>
 
-<div>Legend:</div>
-<div id="legend"></div>
+<div class="row">
+  <div class="col-xs-4">
+    <label class="btn btn-info" ng-show="loading"></i>Loading</label>
+    <label class="btn btn-primary" ng-click="draw()" ng-show="!loading">Redraw</label>
+  </div>
+  <div class="col-xs-8" id="legend"></div>
+</div>
+
 <br>
 <div class="row">
   <div class="col-xs-4" ng-bind="hover.label"></div>
