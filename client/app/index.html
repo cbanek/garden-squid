@@ -20,33 +20,19 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header">
       <div class="navbar navbar-default" role="navigation">
         <div class="container">
-          <div class="navbar-header">
-
-          <img class="nav navbar-nav" height=48 width=48 src="squid-icon.png">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-
-            <a class="navbar-brand" href="#/">Garden Squid</a>
-          </div>
-
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
-
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Conditions</a></li>
+              <li><img class="nav navbar-nav" height=48 width=48 src="squid-icon.png"></li>
+              <li><a href="#/">Garden Squid</a></li>
+              <li><a href="#/">Conditions</a></li>
               <li><a ng-href="#/config">Config</a></li>
               <li><a ng-href="#/automation">Automation</a></li>
             </ul>
           </div>
         </div>
       </div>
-    </div>
 
     <div class="container">
     <div ng-view=""></div>
