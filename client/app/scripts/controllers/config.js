@@ -6,7 +6,7 @@
  * @description Angular controller for dealing with sensor assignment.
  */
 angular.module('clientApp')
-  .controller('SensorsCtrl', function ($scope, $http) {
+  .controller('ConfigCtrl', function ($scope, $http) {
     $scope.reset = function() {
       $http.get('/api/sensors').then(function(response) {
         $scope.saveModel = 'reset';

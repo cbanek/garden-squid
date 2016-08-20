@@ -26,15 +26,10 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .when('/sensors', {
-        templateUrl: 'views/sensors.html',
-        controller: 'SensorsCtrl',
-        controllerAs: 'sensors'
-      })
-      .when('/devices', {
-        templateUrl: 'views/devices.html',
-        controller: 'DevicesCtrl',
-        controllerAs: 'devices'
+      .when('/config', {
+        templateUrl: 'views/config.html',
+        controller: 'ConfigCtrl',
+        controllerAs: 'config'
       })
       .when('/automation', {
         templateUrl: 'views/automation.html',
